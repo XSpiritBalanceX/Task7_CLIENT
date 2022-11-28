@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState} from "react";
 import GameBoard from "./GameBoard";
 import {Form, Button, Card, Modal,Accordion   } from 'react-bootstrap';
 
@@ -12,15 +12,17 @@ function Main() {
   const [modalInfo, setModal]=useState('');
   const handleClose = () => setShow(false);
 
-  async function createRoom(e) {
-    e.preventDefault();
+
+  const createRoom=async(event)=>{
+    event.preventDefault();
     let flag = validateFields()
 
     if(flag) {
       let rooms = await fetchData();
       
       if(!rooms[roomName]){
-        setRoomValidation(true)
+        setRoomValidation(true);
+        
       } else {
         setModal("Room already exists...");
         setShow(true);
@@ -30,16 +32,17 @@ function Main() {
     }
   }
 
-  async function joinRoom(e) {
-    e.preventDefault();
+  const joinRoom = async(event)=>{
+    event.preventDefault();
     let flag = validateFields()
     if(flag){
       let rooms = await fetchData();
       if(rooms[roomName]) {
         if(rooms[roomName].player1.playerName !== null && rooms[roomName].player2.playerName !== null) {
-          alert("Room is full...")
+          setModal("Room is full...");
+          setShow(true);
         } else {
-          setRoomValidation(true)
+          setRoomValidation(true);
         }
       } else {
         setModal("Room does not exists...");
@@ -50,30 +53,37 @@ function Main() {
     }
   }
 
-  async function fetchData() {
+  const fetchData =async()=>{
     let data = fetch(`${HOSTNAME}/rooms/`).then((res) => res.json());
     return data;
   }
 
-  function validateFields() {
+  const validateFields=()=>{
     if(userName.length !== 0 && roomName.length !== 0) {
       return true
     }
     return false
   }
 
+  const exiteGame=(bool)=>{
+    if(bool){
+      setUserName('');
+    setRoomName('');
+    }
+  }
+
   return (
     <>
       {
         !roomValidation ? (          
-          <div style={{margin:'10% auto 0 auto', width:'50%'}}>
+          <div style={{margin:'10% auto 0 auto', width:'60%'}}>
             <h2 style={{textAlign:'center'}}>Tic-Tac-Toe game</h2>
              <Accordion >
       <Accordion.Item eventKey="0">
         <Accordion.Header>Create your game</Accordion.Header>
         <Accordion.Body >
-          <Card  className='p-5 '>
-          <Form className="d-flex flex-column">
+          <Card  className='p-5 ' style={{ margin: '0 auto 0 auto'}}>
+          <Form className="d-flex flex-column" style={{ margin: '0 auto 0 auto', width:'80%'}}>
            <Form.Control className="mt-2" type="text" list="receivers" placeholder={'Enter your username'} 
                 value={userName} onChange={(e) => setUserName(e.target.value)} ></Form.Control>
             <Form.Control className="mt-2" placeholder={'Enter your ID room'}  name='nameReg'
@@ -88,8 +98,8 @@ function Main() {
       <Accordion.Item eventKey="1">
         <Accordion.Header>Join a started game</Accordion.Header>
         <Accordion.Body>
-        <Card  className='p-5 '>
-          <Form className="d-flex flex-column">
+        <Card  className='p-5 ' style={{ margin: '0 auto 0 auto'}}>
+          <Form className="d-flex flex-column" style={{ margin: '0 auto 0 auto', width:'80%'}}>
            <Form.Control className="mt-2" type="text" list="receivers" placeholder={'Enter your username'} 
                 value={userName} onChange={(e) => setUserName(e.target.value)}></Form.Control>
             <Form.Control className="mt-2" placeholder={'Enter the ID of the game you want to join '}  name='nameReg'
@@ -111,7 +121,7 @@ function Main() {
     </Modal>
           </div>
         ) : (
-          <GameBoard ROOM={roomName} userName={userName} setRoomValidation={setRoomValidation} />
+          <GameBoard ROOM={roomName} userName={userName} setRoomValidation={setRoomValidation} cbExite={exiteGame} />
         )
       }
     </>

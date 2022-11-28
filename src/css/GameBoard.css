@@ -8,8 +8,10 @@
 .main-container {
   max-width: 100vw;
   height: auto;
-  display: grid;
-  grid-template-columns: 60% 40%;
+  display: flex;
+  flex-direction: row;
+  padding: 0 2% 5% 2%;
+  justify-content: space-around;
   background-color: rgb(254, 255, 206);
   color: rgb(1, 1, 1);
   padding-top: 60px;
@@ -19,6 +21,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10%;
 }
 
 .board-options {
@@ -112,7 +115,7 @@ hr {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 350px;
+    height: 300px;
     width: 400px;
     overflow-y: scroll;
     margin-bottom: 5px;
@@ -157,11 +160,11 @@ form {
 }
 
 .chat::-webkit-scrollbar-track, .history::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgb(216, 224, 67); 
+    box-shadow: inset 0 0 6px rgb(216, 224, 67); 
     border-radius: 10px;
 }
 
 .chat::-webkit-scrollbar-thumb,.history::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgb(243, 251, 20); 
+    box-shadow: inset 0 0 6px rgb(251, 197, 20); 
 }

@@ -30,8 +30,8 @@ export default function Chat({
         )}
       </div>
       <Form onSubmit={sendMessage} style={{margin:'1% 0 5% 0'}}>
-      <Form.Control className="mt-2" placeholder={'Enter message...'} 
-          value={currentMessage} onChange={(e) => setCurrentMessage(e.target.value)}/>
+      <Form.Control className="mt-2" placeholder={'Enter your message...'} 
+          value={currentMessage} onChange={(event) => setCurrentMessage(event.target.value)}/>
         <Button variant="outline-info" type="submit" style={{margin:'2% 0 0 3%'}}>Send</Button>
       </Form>
     </>
