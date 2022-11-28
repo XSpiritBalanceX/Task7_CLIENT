@@ -99,7 +99,7 @@ function GameBoard({ROOM, userName, setRoomValidation, cbExite}) {
     setMyRole("X");
     fetch(`${SERVER}/setPlayerRoles/${ROOM}`)
     .then((res)=> {
-       //console.log(res)
+       console.log(res)
     })
     .catch((err)=>console.log(err)) ;
   }

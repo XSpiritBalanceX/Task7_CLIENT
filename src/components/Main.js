@@ -54,7 +54,8 @@ function Main() {
   }
 
   const fetchData =async()=>{
-    let data = fetch(`${HOSTNAME}/rooms/`).then((res) => res.json());
+    let response =await fetch(`${HOSTNAME}/rooms/`);
+    let data=await response.json();
     return data;
   }
 
